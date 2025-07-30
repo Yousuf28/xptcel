@@ -1,6 +1,0 @@
-pyreadstat
-pandas
-openpyxl
-pyinstaller
-setuptools
-wheel
