@@ -145,22 +145,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 **Note**: This application creates temporary Excel files in your system's temp directory. These files are not automatically deleted to allow you to save them if needed.
-```
-
-**requirements.txt**
-```txt
-pyreadstat==1.2.7
-pandas==2.1.4
-openpyxl==3.1.2
-pyinstaller==6.3.0
-```
-
-**build_requirements.txt** (optional, for development)
-```txt
-pyreadstat==1.2.7
-pandas==2.1.4
-openpyxl==3.1.2
-pyinstaller==6.3.0
-setuptools>=65.0.0
-wheel>=0.37.0
-```
