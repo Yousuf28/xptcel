@@ -14,9 +14,9 @@ A standalone Python application that converts SAS XPT (XPORT) files to Excel for
 
 ### Option 1: Download Pre-built Executable (Recommended for most users)
 
-1. Go to the [Releases](../../releases) page
-2. Download the latest `xpt-to-excel.exe` file
-3. Place it in a folder of your choice
+1. Go to the [action](https://github.com/Yousuf28/xptcel/actions/runs/16632241132) page
+2. Download the zip file 
+3. Place it in a folder of your choice and unzip
 4. Optional: Associate XPT files with this executable for double-click conversion
 
 ### Option 2: Build from Source
@@ -30,8 +30,8 @@ A standalone Python application that converts SAS XPT (XPORT) files to Excel for
 
 ```bash
 # Using Git
-git clone https://github.com/yourusername/xpt-to-excel-converter.git
-cd xpt-to-excel-converter
+git clone git@github.com:Yousuf28/xptcel.git
+cd xptcel 
 
 # Or download and extract the ZIP file from GitHub
 ```
@@ -140,7 +140,7 @@ If your antivirus software flags the executable as suspicious:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.
 
 ---
 
