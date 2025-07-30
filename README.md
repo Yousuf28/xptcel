@@ -100,7 +100,7 @@ python xpt_open_in_excel.py path/to/your/file.xpt
 
 ### Project Structure
 ```
-xpt-to-excel-converter/
+xptcel/
 ├── xpt_open_in_excel.py      # Main application
 ├── xpt-to-excel.spec         # PyInstaller spec file
 ├── build.sh                  # Build script
