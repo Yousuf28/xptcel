@@ -10,10 +10,8 @@ jobs:
       matrix:
         include:
           - os: windows-latest
-            executable_name: xpt-to-excel.exe
             artifact_name: xpt-to-excel-windows
           - os: macos-latest
-            executable_name: xpt-to-excel
             artifact_name: xpt-to-excel-macos
 
     steps:
@@ -33,18 +31,18 @@ jobs:
     - name: Build executable (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        pyinstaller --windowed --onefile --hidden-import=pyreadstat._readstat_writer --hidden-import=pyreadstat._readstat_parser --collect-all pyreadstat --exclude-module matplotlib --exclude-module scipy --exclude-module sklearn --exclude-module pandas.tests --exclude-module torch --name xpt-to-excel xpt_open_in_excel.py
+        pyinstaller --windowed --onedir --hidden-import=pyreadstat._readstat_writer --hidden-import=pyreadstat._readstat_parser --collect-all pyreadstat --exclude-module matplotlib --exclude-module scipy --exclude-module sklearn --exclude-module pandas.tests --exclude-module torch --exclude-module numpy.tests --exclude-module IPython --exclude-module jupyter --exclude-module notebook --exclude-module tkinter --name xpt-to-excel-fast xpt_open_in_excel.py
 
     - name: Build executable (macOS)
       if: matrix.os == 'macos-latest'
       run: |
-        pyinstaller --windowed --onefile --hidden-import=pyreadstat._readstat_writer --hidden-import=pyreadstat._readstat_parser --collect-all pyreadstat --exclude-module matplotlib --exclude-module scipy --exclude-module sklearn --exclude-module pandas.tests --exclude-module torch --name xpt-to-excel xpt_open_in_excel.py
+        pyinstaller --windowed --onedir --hidden-import=pyreadstat._readstat_writer --hidden-import=pyreadstat._readstat_parser --collect-all pyreadstat --exclude-module matplotlib --exclude-module scipy --exclude-module sklearn --exclude-module pandas.tests --exclude-module torch --exclude-module numpy.tests --exclude-module IPython --exclude-module jupyter --exclude-module notebook --exclude-module tkinter --name xpt-to-excel-fast xpt_open_in_excel.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.artifact_name }}
-        path: dist/${{ matrix.executable_name }}
+        path: dist/xpt-to-excel-fast/
 
   release:
     needs: build
@@ -67,14 +65,100 @@ jobs:
         name: xpt-to-excel-macos
         path: ./artifacts/macos/
 
+    - name: Create zip files for distributions
+      run: |
+        cd ./artifacts/windows && zip -r ../xpt-to-excel-windows.zip . && cd ../..
+        cd ./artifacts/macos && zip -r ../xpt-to-excel-macos.zip . && cd ../..
+
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          ./artifacts/windows/xpt-to-excel.exe
-          ./artifacts/macos/xpt-to-excel
+          ./artifacts/xpt-to-excel-windows.zip
+          ./artifacts/xpt-to-excel-macos.zip
         draft: false
         prerelease: false
         generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# name: Build Executables
+
+# on:
+#   workflow_dispatch:
+
+# jobs:
+#   build:
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       matrix:
+#         include:
+#           - os: windows-latest
+#             executable_name: xpt-to-excel.exe
+#             artifact_name: xpt-to-excel-windows
+#           - os: macos-latest
+#             executable_name: xpt-to-excel
+#             artifact_name: xpt-to-excel-macos
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+
+#     - name: Set up Python
+#       uses: actions/setup-python@v4
+#       with:
+#         python-version: '3.11'
+
+#     - name: Install dependencies
+#       run: |
+#         python -m pip install --upgrade pip
+#         pip install -r requirements.txt
+
+#     - name: Build executable (Windows)
+#       if: matrix.os == 'windows-latest'
+#       run: |
+#         pyinstaller --windowed --onefile --hidden-import=pyreadstat._readstat_writer --hidden-import=pyreadstat._readstat_parser --collect-all pyreadstat --exclude-module matplotlib --exclude-module scipy --exclude-module sklearn --exclude-module pandas.tests --exclude-module torch --name xpt-to-excel xpt_open_in_excel.py
+
+#     - name: Build executable (macOS)
+#       if: matrix.os == 'macos-latest'
+#       run: |
+#         pyinstaller --windowed --onefile --hidden-import=pyreadstat._readstat_writer --hidden-import=pyreadstat._readstat_parser --collect-all pyreadstat --exclude-module matplotlib --exclude-module scipy --exclude-module sklearn --exclude-module pandas.tests --exclude-module torch --name xpt-to-excel xpt_open_in_excel.py
+
+#     - name: Upload artifact
+#       uses: actions/upload-artifact@v4
+#       with:
+#         name: ${{ matrix.artifact_name }}
+#         path: dist/${{ matrix.executable_name }}
+
+#   release:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     if: startsWith(github.ref, 'refs/tags/v')
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+
+#     - name: Download Windows artifact
+#       uses: actions/download-artifact@v4
+#       with:
+#         name: xpt-to-excel-windows
+#         path: ./artifacts/windows/
+
+#     - name: Download macOS artifact
+#       uses: actions/download-artifact@v4
+#       with:
+#         name: xpt-to-excel-macos
+#         path: ./artifacts/macos/
+
+#     - name: Create Release
+#       uses: softprops/action-gh-release@v1
+#       with:
+#         files: |
+#           ./artifacts/windows/xpt-to-excel.exe
+#           ./artifacts/macos/xpt-to-excel
+#         draft: false
+#         prerelease: false
+#         generate_release_notes: true
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

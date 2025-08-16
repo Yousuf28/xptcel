@@ -16,7 +16,7 @@ def convert_xpt_to_excel(xpt_file):
     # Replace missing values with empty string
     df = df.fillna('')
 
-    # Create a named temporary file with the desired name
+    # Create a named temporary file  name
     with tempfile.NamedTemporaryFile(prefix=f"{base_name}_", suffix='.xlsx', delete=False) as tmp_file:
         temp_excel_file = tmp_file.name
 
