@@ -14,10 +14,9 @@ A standalone Python application that converts SAS XPT (XPORT) files to Excel for
 
 ### Option 1: Download Pre-built Executable (Recommended for most users)
 
-1. Go to the [action](https://github.com/Yousuf28/xptcel/actions/runs/16632241132) page
+1. Go to the [action](https://github.com/Yousuf28/xptcel/actions/runs/17003257797) page
 2. Download the zip file 
 3. Place it in a folder of your choice and unzip
-4. Optional: Associate XPT files with this executable for double-click conversion
 
 ### Option 2: Build from Source
 
@@ -68,27 +67,20 @@ chmod +x build.sh
 # On Windows (using Git Bash or WSL):
 ./build.sh
 
-# On Windows (using Command Prompt):
-pyinstaller --windowed --onefile --hidden-import=pyreadstat._readstat_writer --hidden-import=pyreadstat._readstat_parser --collect-all pyreadstat --exclude-module matplotlib --exclude-module scipy --exclude-module sklearn --exclude-module pandas.tests --exclude-module torch --name xpt-to-excel xpt_open_in_excel.py
 ```
 
 #### Step 5: Find Your Executable
 
 After building, the executable will be located in the `dist/` folder:
-- `dist/xpt-to-excel.exe` (Windows)
-- `dist/xpt-to-excel` (macOS/Linux)
+- `dist/xpt-to-excel-fast/xpt-to-excel-fast.exe`
 
 ## Usage
 
-### Command Line
-```bash
-xpt-to-excel.exe path/to/your/file.xpt
-```
 
 ### File Association (Windows)
 1. Right-click on any XPT file
 2. Select "Open with" → "Choose another app"
-3. Browse and select `xpt-to-excel.exe`
+3. Browse and select `xpt-to-excel-fast.exe`
 4. Check "Always use this app to open .xpt files"
 
 ## Development
@@ -102,7 +94,7 @@ python xpt_open_in_excel.py path/to/your/file.xpt
 ```
 xptcel/
 ├── xpt_open_in_excel.py      # Main application
-├── xpt-to-excel.spec         # PyInstaller spec file
+├── xpt-to-excel-fast.spec    # PyInstaller spec file
 ├── build.sh                  # Build script
 ├── requirements.txt          # Python dependencies
 ├── README.md                 # This file
@@ -113,32 +105,7 @@ xptcel/
 
 See `requirements.txt` for the complete list of Python packages required.
 
-## Troubleshooting
 
-### Antivirus Warnings
-If your antivirus software flags the executable as suspicious:
-1. This is a common false positive for PyInstaller-generated executables
-2. You can build from source to verify the code is safe
-3. Add the executable to your antivirus whitelist
-4. The executable gains trust over time as more users download it safely
-
-### Build Issues
-- Ensure you're using Python 3.8 or higher
-- Make sure all dependencies are installed in your virtual environment
-- On Windows, you may need to install Microsoft Visual C++ Build Tools
-
-### Runtime Issues
-- Ensure the XPT file path doesn't contain special characters
-- Make sure you have write permissions in your temp directory
-- Verify that Excel or a compatible application is installed to open .xlsx files
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
