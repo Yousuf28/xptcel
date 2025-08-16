@@ -4,6 +4,7 @@ import pyreadstat
 import pandas as pd
 import tempfile
 import openpyxl
+import subprocess
 from pathlib import Path
 
 def convert_xpt_to_excel(xpt_file):
@@ -28,17 +29,24 @@ def convert_xpt_to_excel(xpt_file):
     print("Opening Excel file...")
 
     try:
-        if platform.system() == "Darwin":  # macOS
-            os.system(f"open '{temp_excel_file}'")
-        elif platform.system() == "Windows":
-            os.startfile(temp_excel_file)
-        else:  # Linux
-            os.system(f"xdg-open '{temp_excel_file}'")
-    except Exception as e:
+        # Try Windows first (os.startfile only exists on Windows)
+        os.startfile(temp_excel_file)
+        print("Excel file opened successfully!")
+    except AttributeError:
+        # Not Windows, try macOS
+        try:
+            subprocess.run(["open", temp_excel_file], check=True)
+            print("Excel file opened successfully!")
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            # macOS failed or not macOS, fallback
+            print(f"Could not open file automatically.")
+            print(f"Excel file saved at: {temp_excel_file}")
+            print("Please open it manually.")
+    except OSError as e:
+        # Windows but os.startfile failed
         print(f"Could not open file automatically: {e}")
         print(f"Excel file saved at: {temp_excel_file}")
         print("Please open it manually.")
-
 
     # # Open the Excel file
     # try:
