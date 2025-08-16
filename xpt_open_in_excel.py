@@ -27,12 +27,25 @@ def convert_xpt_to_excel(xpt_file):
     print(f"Temporary Excel file created at: {temp_excel_file}")
     print("Opening Excel file...")
 
-    # Open the Excel file
     try:
-        os.startfile(temp_excel_file)
-    except AttributeError:
+        if platform.system() == "Darwin":  # macOS
+            os.system(f"open '{temp_excel_file}'")
+        elif platform.system() == "Windows":
+            os.startfile(temp_excel_file)
+        else:  # Linux
+            os.system(f"xdg-open '{temp_excel_file}'")
+    except Exception as e:
+        print(f"Could not open file automatically: {e}")
         print(f"Excel file saved at: {temp_excel_file}")
         print("Please open it manually.")
+
+
+    # # Open the Excel file
+    # try:
+    #     os.startfile(temp_excel_file)
+    # except AttributeError:
+    #     print(f"Excel file saved at: {temp_excel_file}")
+    #     print("Please open it manually.")
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
