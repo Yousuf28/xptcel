@@ -1,4 +1,4 @@
-name: Build Executables
+name: Build Executables single file
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Build Executables
+name: Build Executables directory-based
 
 on:
   workflow_dispatch:
