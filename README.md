@@ -13,10 +13,12 @@ A standalone Python application that converts SAS XPT (XPORT) files to Excel for
 ## Installation Options
 
 ### Option 1: Download Pre-built Executable (Recommended for most users)
-
+#### for windows user:
 1. Go to the [action](https://github.com/Yousuf28/xptcel/actions/runs/17003257797) page
 2. Download the zip file 
 3. Place it in a folder of your choice and unzip
+#### for macos user:
+- [download from here](https://github.com/Yousuf28/xptcel/tree/macos/dist)
 
 ### Option 2: Build from Source
 
@@ -83,7 +85,11 @@ After building, the executable will be located in the `dist/` folder:
 2. Select "Open with" → "Choose another app"
 3. Browse and select `xpt-to-excel-fast.exe`
 4. Check "Always use this app to open .xpt files"
-
+### for macOS
+1. Right click on any xpt file
+2. select get info
+3. find open with: and then select other, and find exe file.
+4. click on change all and close.
 ## Development
 
 ### Running from Source
