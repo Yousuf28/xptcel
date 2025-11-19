@@ -33,6 +33,7 @@ git clone git@github.com:Yousuf28/xptcel.git
 cd xptcel 
 
 # Or download and extract the ZIP file from GitHub
+# for macos, use macos branch
 ```
 
 #### Step 2: Set Up Virtual Environment
